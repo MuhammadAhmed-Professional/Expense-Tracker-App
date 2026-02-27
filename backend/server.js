@@ -16,21 +16,22 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
-app.use(express.json());
+// CORS must come FIRST
 app.use(
     cors({
         origin: process.env.CLIENT_URL || "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"]
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true
     })
-)
+);
 
+// Then handle OPTIONS preflight
+app.options('*', (req, res) => {
+    res.sendStatus(200);
+});
+
+app.use(express.json());
 
 connectDB();
 
