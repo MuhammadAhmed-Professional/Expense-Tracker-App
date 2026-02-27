@@ -16,7 +16,12 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-app.options('*', cors());
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 app.use(express.json());
 app.use(
     cors({
