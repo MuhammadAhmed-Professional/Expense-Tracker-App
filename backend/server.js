@@ -16,6 +16,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+app.options('*', cors());
 app.use(express.json());
 app.use(
     cors({
