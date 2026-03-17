@@ -34,7 +34,8 @@ app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 
 //serve uploads folder
-app.use('/uploads', express.static(path.join(__dirname, "uploads")))
+const uploadDir = process.env.VERCEL === "1" ? '/tmp' : path.join(__dirname, "uploads");
+app.use('/uploads', express.static(uploadDir))
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server running on port ${PORT}`))

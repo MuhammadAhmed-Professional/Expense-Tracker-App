@@ -3,7 +3,8 @@ import multer from 'multer';
 //configure storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        const dest = process.env.VERCEL === "1" ? '/tmp' : 'uploads/';
+        cb(null, dest);
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`);
