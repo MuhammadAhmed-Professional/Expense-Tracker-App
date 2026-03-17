@@ -16,6 +16,10 @@
     background-color: #fcfbfc;
     overflow-x: hidden;
   }
+
+  button, a {
+    cursor: pointer;
+  }
 }
 
 .input-box {

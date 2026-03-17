@@ -50,12 +50,22 @@ const SideMenu = ({activeMenu}) => {
            </h5>
         </div>
 
-        {SIDE_MENU_DATA.map((item, index) => (
-            <button key={`menu_${index}`} className={`w-full flex items-center gap-4 text-[15px] ${activeMenu == item.label ? "text-white bg-primary" : ""} py-3 px-6 rounded-lg mb-3`} onClick={() => handleClick(item.path)}>
-                <item.icon className='text-xl'/>
-                {item.label}
-            </button>
-        ))}
+        {SIDE_MENU_DATA.map((item, index) => {
+            const isLogout = item.label === "Logout";
+            const normalClasses = activeMenu == item.label ? "text-white bg-primary" : "hover:bg-purple-50 hover:text-primary";
+            const logoutClasses = "text-red-500 hover:bg-red-50 hover:text-red-600 active:bg-red-500 active:text-white";
+
+            return (
+                <button 
+                    key={`menu_${index}`} 
+                    className={`w-full flex items-center gap-4 text-[15px] ${isLogout ? logoutClasses : normalClasses} py-3 px-6 rounded-lg mb-3 cursor-pointer`} 
+                    onClick={() => handleClick(item.path)}
+                >
+                    <item.icon className='text-xl'/>
+                    {item.label}
+                </button>
+            );
+        })}
     </div>
   )
 }
